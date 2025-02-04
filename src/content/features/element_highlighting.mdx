@@ -1,0 +1,110 @@
+# Element Highlighting
+
+Element Highlighting is a powerful feature that allows you to draw attention to specific elements on your page during demos. This is particularly useful for:
+- Guiding users through complex interfaces
+- Highlighting important features
+- Creating interactive tutorials
+- Drawing attention to specific UI elements
+
+> [!NOTE]
+>
+> We are working on a chrome extension that will allow you to highlight elements on any website without having to add an `id` prop. Coming soon!
+
+## Basic Usage
+
+Add an `id` attribute to any element you want to highlight in your demo:
+
+```tsx filename="components/Dashboard.tsx" {1} copy
+<Card id="revenue-chart">
+  <h1>Revenue Overview</h1>
+  <BarChart data={revenueData} />
+</Card>
+```
+
+## Configuration Options
+
+You can customize the highlighting behavior using the following attributes:
+
+| Attribute | Type | Description |
+|-----------|------|-------------|
+| `data-highlight-delay` | `number` | Delay in ms before highlighting (default: 0) |
+| `data-highlight-duration` | `number` | Duration of highlight animation in ms (default: 1000) |
+| `data-highlight-color` | `string` | Custom highlight color (default: primary theme color) |
+
+Example with custom configuration:
+
+```tsx filename="components/UserProfile.tsx" {2-4} copy
+<Button 
+  id="save-profile"
+  data-highlight-delay="500"
+  data-highlight-duration="2000"
+  data-highlight-color="#FF5733"
+>
+  Save Changes
+</Button>
+```
+
+## Multiple Elements
+
+You can highlight multiple elements in sequence by using different IDs:
+
+```tsx filename="components/Onboarding.tsx" copy
+<div>
+  <Header id="step-1">First, enter your details</Header>
+  <Input id="step-2" placeholder="Email" />
+  <Button id="step-3">Continue</Button>
+</div>
+```
+
+## Dynamic Highlighting
+
+Use the `highlightElement` function programmatically:
+
+```tsx filename="components/Tutorial.tsx" copy
+import { useHighlight } from 'demo-penguin'
+
+export function Tutorial() {
+  const { highlightElement } = useHighlight()
+
+  const handleNext = () => {
+    highlightElement('next-step')
+  }
+
+  return (
+    <div>
+      <Button onClick={handleNext}>Show Next Step</Button>
+      <Card id="next-step">
+        <h2>Next Steps</h2>
+        {/* Content */}
+      </Card>
+    </div>
+  )
+}
+```
+
+## Styling
+
+The highlight effect can be customized using CSS:
+
+```css filename="styles/highlights.css" copy
+[data-demo-highlight="true"] {
+  /* Custom styles for highlighted elements */
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 4px rgba(var(--highlight-color), 0.5);
+}
+```
+
+## Best Practices
+
+1. **Meaningful IDs**: Use descriptive IDs that reflect the purpose of the element
+2. **Accessibility**: Ensure highlighted elements remain accessible
+3. **Performance**: Avoid highlighting too many elements simultaneously
+4. **Responsive Design**: Test highlighting behavior across different screen sizes
+
+> [!TIP]
+>
+> Use element highlighting in combination with tooltips for more effective guided tours.
+
+> [!NOTE]
+>
+> Element highlighting works with any HTML element or React component that accepts an `id` prop.

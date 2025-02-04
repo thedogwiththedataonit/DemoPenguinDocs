@@ -1,0 +1,85 @@
+import { Steps } from 'nextra/components'
+
+# Get Started
+
+## Quick Start with DemoPenguin
+
+Get started with DemoPenguin by creating an account and setting up your application:
+
+<Steps>
+### Create a DemoPenguin Account
+
+Visit [demopenguin.com](https://demopenguin.com) to create your account and access the platform.
+
+### Create an Application
+
+Once logged in:
+1. Navigate to the Applications dashboard
+2. Click "Create New Application"
+3. Configure your application settings and obtain your client token
+
+### Install DemoPenguin Package
+
+```sh npm2yarn
+npm i demo-penguin
+```
+
+Or using pnpm:
+
+```sh
+pnpm i demo-penguin
+```
+
+### Add DemoPenguin to Your Application
+
+Add the DemoPenguin wrapper to your root layout:
+
+```tsx filename="app/layout.tsx"
+import { DemoPenguin } from "demo-penguin"
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body>
+        <DemoPenguin
+          clientToken="client-token"
+          userId="user-id"
+          userInfo={{
+            name: "John Doe",
+            email: "john.doe@example.com",
+            company: "Example Inc.",
+            role: "Admin",
+          }}
+        >
+          {children}
+        </DemoPenguin>
+      </body>
+    </html>
+  )
+}
+```
+
+### Define Application Routes and Flow Types
+
+In your DemoPenguin dashboard:
+1. Configure your application routes
+2. Define flow types for different user journeys
+3. Map routes to specific demo scenarios
+
+### Add Additional User Data (Optional)
+
+Enhance your demo experiences by adding more user data through the `userInfo` prop:
+- Custom user roles
+- Organization details
+- Usage statistics
+- Feature flags
+
+</Steps>
+
+> [!TIP]
+>
+> Use the DemoPenguin dashboard to monitor user interactions and demo performance in real-time.

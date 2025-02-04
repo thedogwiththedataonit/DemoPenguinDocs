@@ -1,0 +1,132 @@
+# React
+
+DemoPenguin seamlessly integrates with React applications. Follow this guide to add DemoPenguin to your React project.
+
+## Installation
+
+```sh npm2yarn
+npm install demo-penguin
+```
+
+Or using pnpm:
+```sh
+pnpm add demo-penguin
+```
+
+## Basic Setup
+
+Add DemoPenguin to your root component:
+
+```tsx filename="src/App.tsx"
+import { DemoPenguin } from "demo-penguin"
+
+function App() {
+  return (
+    <DemoPenguin
+      clientToken="your-client-token"
+      userId="user-id"
+      userInfo={{
+        name: "John Doe",
+        email: "john.doe@example.com",
+        company: "Example Inc.",
+        role: "Admin",
+      }}
+    >
+      {/* Your app components */}
+    </DemoPenguin>
+  )
+}
+
+export default App
+```
+
+For applications using React Router, wrap your router with DemoPenguin:
+
+```tsx filename="src/main.tsx"
+import { DemoPenguin } from "demo-penguin"
+import { BrowserRouter } from "react-router-dom"
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <DemoPenguin
+      clientToken="your-client-token"
+      userId="user-id"
+      userInfo={{
+        name: "John Doe",
+        email: "john.doe@example.com",
+        company: "Example Inc.",
+        role: "Admin",
+      }}
+    >
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </DemoPenguin>
+  </React.StrictMode>
+)
+```
+
+## Configuration Options
+
+### Required Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `clientToken` | `string` | Your DemoPenguin application token |
+| `userId` | `string` | Unique identifier for the current user |
+
+### Optional Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `userInfo` | `object` | Additional user information |
+| `theme` | `"light" \| "dark" \| "auto"` | UI theme preference |
+| `position` | `"top-right" \| "bottom-right"` | Widget position |
+
+## User Information
+
+The `userInfo` object can include:
+
+```typescript
+interface UserInfo {
+  name?: string;
+  email?: string;
+  company?: string;
+  role?: string;
+  // Additional custom fields
+  [key: string]: any;
+}
+```
+
+## Environment Setup
+
+### Development
+
+During development, you can use a test token:
+
+```env filename=".env"
+VITE_DEMO_PENGUIN_TOKEN=demo_test_xxxxx
+```
+
+### Production
+
+For production, use your live token:
+
+```env filename=".env.production"
+VITE_DEMO_PENGUIN_TOKEN=demo_live_xxxxx
+```
+
+Then use it in your app:
+
+```tsx
+<DemoPenguin
+  clientToken={import.meta.env.VITE_DEMO_PENGUIN_TOKEN}
+  // ... other props
+>
+```
+
+> [!TIP]
+> Always use environment variables for your client token to keep it secure and easily configurable across environments.
+
+> [!NOTE]
+> For Create React App, use `REACT_APP_` prefix for environment variables (e.g., `REACT_APP_DEMO_PENGUIN_TOKEN`).
