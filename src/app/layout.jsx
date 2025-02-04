@@ -5,22 +5,22 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import Image from 'next/image'
 export const metadata = {
-  metadataBase: new URL('https://nextra.site'),
+  metadataBase: new URL('https://docs.demopenguin.com'),
   title: {
-    template: '%s - Nextra'
+    template: '%s - DemoPenguin'
   },
-  description: 'Nextra: the Next.js site builder',
-  applicationName: 'Nextra',
+  description: 'DemoPenguin: The platform for creating onboarding and user flow experiences.',
+  applicationName: 'DemoPenguin',
   generator: 'Next.js',
   appleWebApp: {
-    title: 'Nextra'
+    title: 'DemoPenguin'
   },
   other: {
-    'msapplication-TileImage': '/ms-icon-144x144.png',
+    'msapplication-TileImage': '/penguin-facing.png',
     'msapplication-TileColor': '#fff'
   },
   twitter: {
-    site: 'https://nextra.site'
+    site: 'https://docs.demopenguin.com'
   }
 }
 
