@@ -52,6 +52,55 @@ export default function RootLayout({
 }
 ```
 
+### Using Dynamic Imports for SSR layout pages
+
+If you are using Next js and you are building your site at build with ISR, you can use dynamic imports to build your site without DemoPenguin and load it in at runtime.
+
+Create a new file called `DemoPenguinWrapper.tsx` while will be used in your layout.tsx file. This will ensure that DemoPenguin is only loaded in the browser and not during the build process.
+```tsx
+'use client';
+
+import dynamic from 'next/dynamic';
+// Dynamically import DemoPenguin with SSR disabled
+
+const DemoPenguinClient = dynamic(
+  () => import('demo-penguin').then(mod => ({ default: mod.DemoPenguin })),
+  { ssr: false }
+);
+
+export function DemoPenguinWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <DemoPenguinClient
+      clientToken={process.env.NEXT_PUBLIC_DEMO_PENGUIN_CLIENT_TOKEN || ""}
+      userId={Math.floor(Date.now() / 1000).toString()}
+      firstName="Anonymous"
+      lastName="User"
+      userEmail="anonymous@example.com"
+      additionalInfo={{
+      company: "Your Company",
+      role: "User",
+      }}
+    devMode={false}
+    >
+      {children}
+    </DemoPenguinClient>
+)}
+```
+
+Then in your layout.tsx file, import the `DemoPenguinWrapper` component and use it as the wrapper for your layout.
+
+```tsx filename="app/layout.tsx"
+import { DemoPenguinWrapper } from './DemoPenguinWrapper';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return <DemoPenguinWrapper>{children}</DemoPenguinWrapper>;
+}
+```
+
 ### Pages Router
 
 For the Pages Router, add DemoPenguin to your `_app.tsx`:
