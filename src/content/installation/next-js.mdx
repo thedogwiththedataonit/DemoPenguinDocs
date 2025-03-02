@@ -38,14 +38,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <DemoPenguin
-          clientToken="your-client-token"
-          userId="user-id"
+        <DemoPenguin 
+          clientToken="client-token"
           userInfo={{
-            name: "John Doe",
-            email: "john.doe@example.com",
-            company: "Example Inc.",
-            role: "Admin",
+            userId: "user-id",
+            userFirstName: "John",
+            userLastName: "Doe",
+            userEmail: "john.doe@example.com",
+            userType: "admin",
+          }}
+          variables={{
+            [key: string]: string;
           }}
         >
           {children}
@@ -76,15 +79,17 @@ export function DemoPenguinWrapper({ children }: { children: React.ReactNode }) 
   return (
     <DemoPenguinClient
       clientToken={process.env.NEXT_PUBLIC_DEMO_PENGUIN_CLIENT_TOKEN || ""}
-      userId={Math.floor(Date.now() / 1000).toString()}
-      firstName="Anonymous"
-      lastName="User"
-      userEmail="anonymous@example.com"
-      additionalInfo={{
-      company: "Your Company",
-      role: "User",
+      userInfo={{
+        userId: "user-id",
+        userFirstName: "John",
+        userLastName: "Doe",
+        userEmail: "john.doe@example.com",
+        userType: "admin",
       }}
-    devMode={false}
+      variables={{
+        [key: string]: string;
+      }}
+      devMode={false}
     >
       {children}
     </DemoPenguinClient>
@@ -117,15 +122,18 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <DemoPenguin
         clientToken="client-token"
-        userId="user-id"
-        userFirstName="John"
-        userLastName="Doe"
-        userEmail="john.doe@example.com"
-        additionalInfo={{
-            company: "Example Inc.",
-            role: "Admin",
-          }}
-        >
+        userInfo={{
+            userId: "user-id",
+            userFirstName: "John",
+            userLastName: "Doe",
+            userEmail: "john.doe@example.com",
+            userType: "admin",
+        }}
+        variables={{
+            [key: string]: string;
+        }}
+        devMode={false}
+    >
         <Component {...pageProps} />
     </DemoPenguin>
   )
@@ -139,26 +147,30 @@ export default function App({ Component, pageProps }: AppProps) {
 | Prop | Type | Description |
 |------|------|-------------|
 | `clientToken` | `string` | Your DemoPenguin application token |
-| `userId` | `string` | Unique identifier for the current user |
-
-### Optional Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `userInfo` | `object` | Additional user information |
-| `userFirstName` | `string` | User's first name |
-| `userLastName` | `string` | User's last name |
-| `userEmail` | `string` | User's email |
-| `additionalInfo` | `object` | Additional user information |
+| `userInfo` | `object` | User information |
+| `variables` | `object` | Variables to be used in the DemoPenguin |
 
 ## User Information
 
-The `userInfo` object can include:
+The `userInfo` object can optionally include:
 
 ```typescript
 interface UserInfo {
-  // Additional custom fields
-  [key: string]: any;
+  userId?: string;
+  userFirstName?: string;
+  userLastName?: string;
+  userEmail?: string;
+  userType?: string;
+}
+```
+
+## Variables
+
+Variables are used to pass data to the DemoPenguin. They are passed in as an object with a key of the variable name and a value of the variable value. You can reference variables in your DemoPenguin flows by using the `{{variableName}}` syntax.
+
+```typescript
+interface Variables {
+  [key: string]: string;
 }
 ```
 

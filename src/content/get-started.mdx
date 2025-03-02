@@ -49,10 +49,14 @@ export default function RootLayout({
           clientToken="client-token"
           userId="user-id"
           userInfo={{
-            name: "John Doe",
-            email: "john.doe@example.com",
-            company: "Example Inc.",
-            role: "Admin",
+            userId: "user-id",
+            userFirstName: "John",
+            userLastName: "Doe",
+            userEmail: "john.doe@example.com",
+            userType: "admin",
+          }}
+          variables={{
+            [key: string]: string;
           }}
         >
           {children}

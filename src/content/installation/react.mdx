@@ -30,10 +30,14 @@ function App() {
       clientToken="your-client-token"
       userId="user-id"
       userInfo={{
-        name: "John Doe",
-        email: "john.doe@example.com",
-        company: "Example Inc.",
-        role: "Admin",
+        userId: "user-id",
+        userFirstName: "John",
+        userLastName: "Doe",
+        userEmail: "john.doe@example.com",
+        userType: "admin",
+      }}
+      variables={{
+        [key: string]: string;
       }}
     >
       {/* Your app components */}
@@ -56,10 +60,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       clientToken="your-client-token"
       userId="user-id"
       userInfo={{
-        name: "John Doe",
-        email: "john.doe@example.com",
-        company: "Example Inc.",
-        role: "Admin",
+        userId: "user-id",
+        userFirstName: "John",
+        userLastName: "Doe",
+        userEmail: "john.doe@example.com",
+        userType: "admin",
+      }}
+      variables={{
+        [key: string]: string;
       }}
     >
       <BrowserRouter>
@@ -77,15 +85,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 | Prop | Type | Description |
 |------|------|-------------|
 | `clientToken` | `string` | Your DemoPenguin application token |
-| `userId` | `string` | Unique identifier for the current user |
-
-### Optional Props
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `userInfo` | `object` | Additional user information |
-| `theme` | `"light" \| "dark" \| "auto"` | UI theme preference |
-| `position` | `"top-right" \| "bottom-right"` | Widget position |
+| `userInfo` | `object` | User information |
+| `variables` | `object` | Variables to be used in the DemoPenguin |
 
 ## User Information
 
@@ -93,41 +94,23 @@ The `userInfo` object can include:
 
 ```typescript
 interface UserInfo {
-  name?: string;
-  email?: string;
-  company?: string;
-  role?: string;
-  // Additional custom fields
-  [key: string]: any;
+  userId?: string;
+  userFirstName?: string;
+  userLastName?: string;
+  userEmail?: string;
+  userType?: string;
 }
 ```
 
-## Environment Setup
+## Variables
 
-### Development
+Variables are used to pass data to the DemoPenguin. They are passed in as an object with a key of the variable name and a value of the variable value. You can reference variables in your DemoPenguin flows by using the `{{variableName}}` syntax.
 
-During development, you can use a test token:
+```typescript
+interface Variables {
+  [key: string]: string;
+}
 
-```env filename=".env"
-VITE_DEMO_PENGUIN_TOKEN=demo_test_xxxxx
-```
-
-### Production
-
-For production, use your live token:
-
-```env filename=".env.production"
-VITE_DEMO_PENGUIN_TOKEN=demo_live_xxxxx
-```
-
-Then use it in your app:
-
-```tsx
-<DemoPenguin
-  clientToken={import.meta.env.VITE_DEMO_PENGUIN_TOKEN}
-  // ... other props
->
-```
 
 > [!TIP]
 >

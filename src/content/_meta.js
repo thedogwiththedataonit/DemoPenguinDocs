@@ -3,5 +3,4 @@ export default {
   'get-started': '',
   "installation": '',
   features: '',
-  themes: '',
 }
